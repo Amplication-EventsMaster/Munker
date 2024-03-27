@@ -27,6 +27,9 @@ export class EventControllerBase {
   constructor(protected readonly service: EventService) {}
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Event })
+  @swagger.ApiBody({
+    type: EventCreateInput,
+  })
   async createEvent(@common.Body() data: EventCreateInput): Promise<Event> {
     return await this.service.createEvent({
       data: {
@@ -110,6 +113,9 @@ export class EventControllerBase {
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: Event })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiBody({
+    type: EventUpdateInput,
+  })
   async updateEvent(
     @common.Param() params: EventWhereUniqueInput,
     @common.Body() data: EventUpdateInput
